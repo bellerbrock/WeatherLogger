@@ -43,7 +43,7 @@ def main():
     bme = bme280.Bme280()
     bme.set_mode(bme280.MODE_FORCED)
     tempC, pressure, humidity = bme.get_data()
-    sunlight = round(bh1750.readLight())
+    light = round(bh1750.readLight())
     tempF = round((tempC * 9/5) + 32)
     pressure = round(pressure/100)
     humidity = round(humidity)
