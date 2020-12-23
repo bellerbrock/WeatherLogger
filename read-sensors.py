@@ -49,12 +49,15 @@ def main():
     light = bh1750.readLight()
     tempF = (tempC * 9/5) + 32
     pressure = pressure/100
+    print ('Temperature: %f °C' % tempC)
     print ('Temperature: %f °F' % tempF)
     print ('Pressure: %f mb' % pressure)
     print ('Humidity: %f %%rH' % humidity)
     print ('Light Intensity: %f lux' % light)
     light = round(light)
-    tempF = round(tempF,1)
+    # tempF = round(tempF*2)/2
+    tempC = round(tempC*2)/2
+    tempF = round((tempC * 9/5) + 32, 1)
     pressure = round(pressure)
     humidity = round(humidity)
     print ('Temperature: %f °F' % tempF)
