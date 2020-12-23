@@ -54,7 +54,7 @@ def main():
     print ('Humidity: %f %%rH' % humidity)
     print ('Light Intensity: %f lux' % light)
     light = round(light)
-    tempF = round(tempF)
+    tempF = round(tempF,1)
     pressure = round(pressure)
     humidity = round(humidity)
     print ('Temperature: %f °F' % tempF)
