@@ -8,9 +8,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import bme280
 import bh1750
 import datetime
-
-# My Spreadsheet ID ... See google documentation on how to derive this
-MY_SPREADSHEET_ID = '1BMW1JmsHRVQTZn7ggFSDVjr4XCiD5GLGWmTcXA6szXE'
+import config
 
 
 def update_sheet(sheetname, temperature, pressure, humidity, sunlight):
@@ -30,8 +28,8 @@ def update_sheet(sheetname, temperature, pressure, humidity, sunlight):
     body = { 'values': values }
     # call the append API to perform the operation
     result = service.spreadsheets().values().append(
-                spreadsheetId=MY_SPREADSHEET_ID,
-                range=sheetname + '!A1:G1',
+                spreadsheetId=config.SPREADSHEET_ID,
+                range=sheetname + '!A1:D1',
                 valueInputOption='USER_ENTERED',
                 insertDataOption='INSERT_ROWS',
                 body=body).execute()
@@ -40,7 +38,7 @@ def update_sheet(sheetname, temperature, pressure, humidity, sunlight):
 def main():
     """main method:
        reads the BME280 and BH1750 chips then
-       calls update_sheets method to add their sensor data to the spreadsheet
+       calls update_sheet method to add their sensor data to the spreadsheet
     """
     bme = bme280.Bme280()
     bme.set_mode(bme280.MODE_FORCED)
@@ -51,8 +49,8 @@ def main():
     print ('Temperature: %f °F' % tempF)
     print ('Pressure: %f mb' % pressure)
     print ('Humidity: %f %%rH' % humidity)
-    print ('Sunlight: %f lux' % sunlight)
-    update_sheet("Sunroom", tempF, pressure, humidity, sunlight)
+    print ('Light Intensity: %f lux' % sunlight)
+    update_sheet(config.SHEET_NAME, tempF, pressure, humidity, sunlight)
 
 
 if __name__ == '__main__':
