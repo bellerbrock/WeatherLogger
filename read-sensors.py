@@ -24,7 +24,14 @@ def update_sheet(sheetname, temperature, pressure, humidity, light):
 
     # Call the Sheets API, append the next row of sensor data
     # values is the array of rows we are updating, its a single row
-    values = [ [ str(datetime.datetime.now()), temperature, pressure, humidity, light] ]
+    datetime.now().replace(second=0, microsecond=0)
+    values = [ [
+        str(datetime.datetime.now().replace(second=0, microsecond=0)),
+        temperature,
+        pressure,
+        humidity,
+        light
+    ] ]
     body = { 'values': values }
     # call the append API to perform the operation
     result = service.spreadsheets().values().append(
