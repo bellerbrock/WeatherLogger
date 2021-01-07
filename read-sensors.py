@@ -24,9 +24,8 @@ def update_sheet(sheetname, temperature, pressure, humidity, light):
 
     # Call the Sheets API, append the next row of sensor data
     # values is the array of rows we are updating, its a single row
-    datetime.now().replace(second=0, microsecond=0)
     values = [ [
-        str(datetime.datetime.now().replace(second=0, microsecond=0)),
+        datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
         temperature,
         pressure,
         humidity,
