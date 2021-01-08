@@ -73,7 +73,9 @@ Follow [google's instructions](https://gspread.readthedocs.io/en/latest/oauth2.h
 - Go to “APIs & Services > Credentials” and choose “Create credentials > Service account key”.
 - Fill out the form, click “Create key”, and select “JSON” and click “Create”.
 
-You will automatically download a JSON file with credentials. Copy to the pi zero WeatherLogger repo and name it sheets-api-credentials.json.
+You will automatically download a JSON file with credentials. Open the file, copy the value of 'client_email' in the file, then go to your google sheet and share it with the client email.
+
+Mext copy the JSON credential file to the pi zero WeatherLogger repo and name it sheets-api-credentials.json.
 Run `python read-sensors.py` to test logging.
 Once working run `crontab -e` and add a line like `
 */5 * * * * cd /home/pi/project/WeatherLogger; python read-sensors.py` for automatic logging (in this case every 5 mins). 
