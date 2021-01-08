@@ -3,6 +3,8 @@ Instructions and python code for turning a raspberry pi plus sensors into a weat
 
 Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH1750 library](https://bitbucket.org/MattHawkinsUK/rpispy-misc/raw/master/python/bh1750.py). Credit to [Allan Schwartz's blog](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/) for the idea and the sheets api submission code.
 
+![Materials](https://user-images.githubusercontent.com/11297346/104059617-9ed27f80-51c3-11eb-9b1d-c7e1de7a2b09.jpg)
+
 # Tools and Materials
 
 Tools: 
