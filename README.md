@@ -31,17 +31,17 @@ Materials:
 
 Flash SD card with latest raspberry pi os using raspberry pi imager.
 Once flashed but before ejecting enable ssh and add wpa_supplicant file for headless wireless networking.
-More details [here](http://www.whatimade.today/when-the-pi-goes-stale-we-bake-another/#creatingthemicrosdcard)
+More details [here](http://www.whatimade.today/when-the-pi-goes-stale-we-bake-another/#creatingthemicrosdcard).
 
 # Step 2: Make wires
 
-Make four Y-shaped wires with female dupont adapters. Nice guide [here](https://www.mschoeffler.de/2017/12/26/diy-y-adapter-jumper-wire/) One each of Red, Black, White, and Grey.
-Use continuity test to make aure double crimped wires are working.
+Make four Y-shaped wires with female dupont adapters. Nice guide [here](https://www.mschoeffler.de/2017/12/26/diy-y-adapter-jumper-wire/). One each of Red, Black, White, and Grey.
+Use continuity test to make sure double crimped wires are working.
 Use Dupont housing if it works, electrical tape if it doesn't.
 
 # Step 3: Solder
 
-Solder header pins that came with sensors to the sensors, and five pins to pi pins 1,3,5,7,9. More details for BME260 [here](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/#hardware)
+Solder header pins that came with sensors to the sensors, and five pins to pi pins 1,3,5,7,9. More details for BME260 [here](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/#hardware).
 Use breadboard if needed for stability.
 
 # Step 4: Connect for testing
@@ -57,12 +57,12 @@ Connect pi power cable.
 
 # Step 5: Test
 
-Boot up pi zero w. Use Network Scanner to find pi's IP address and connect to it via SSH.
-Change pi's default password. Use raspi-config to set language, timezone, and enable i2c.
-install python-smbus and i2c-tools if not already installed.
-reboot and run i2cdetect -y 1 to verify both sensors are working.
-Use git clone to copy this repo to the pi.
-run `python demo.y` to test sensors.
+- Boot up pi zero w. Use Network Scanner to find pi's IP address and connect to it via SSH.
+- Change pi's default password. Use raspi-config to set language, timezone, and enable i2c.
+- install python-smbus and i2c-tools if not already installed.
+- reboot and run `i2cdetect -y 1` to verify both sensors are working.
+- Use git clone to copy this repo to the pi.
+- run `python demo.y` to test sensors.
 
 # Step 6: Set up logging via API
 
