@@ -6,24 +6,24 @@ Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH
 # Tools and Materials
 
 Tools: 
-Crimping Pliers
-Wire Stripper and Cutter
-Soldering Iron
-Drill and Bits
-Multimeter/Continuity Tester
-Breadboard
+- Crimping Pliers
+- Wire Stripper and Cutter
+- Soldering Iron
+- Drill and Bits
+- Multimeter/Continuity Tester
+- Breadboard
 
 Materials:
-Raspberry Pi Zero W plus micro SD card and power cable
-BME280 sensor
-BH1750 sensor
-Wire
-Female Dupont Connectors
-Electrical Tape
-Electronics Solder
-Plastic Jar
-Twine
-Aluminium Foil
+- Raspberry Pi Zero W plus micro SD card and power cable
+- BME280 sensor
+- BH1750 sensor
+- Wire
+- Female Dupont Connectors
+- Electrical Tape
+- Electronics Solder
+- Plastic Jar
+- Twine
+- Aluminium Foil
 
 # Step 1: Set up Pi Zero W
 
@@ -45,10 +45,10 @@ Use breadboard if needed for stability.
 # Step 4: Connect for testing
 
 Wire pi to sensors via:
-  Red wire from pi pin 1 to sensors VIN
-  Grey wire from pi pin 3 to sensors SDA
-  White wire from pi pin 5 to sensors SCL
-  Black wire from pi pin 9 to sensors GND
+- Red wire from pi pin 1 to sensors VIN
+- Grey wire from pi pin 3 to sensors SDA
+- White wire from pi pin 5 to sensors SCL
+- Black wire from pi pin 9 to sensors GND
 
 Insert SD card into pi zero w's slot.
 Connect pi power cable.
@@ -65,12 +65,13 @@ run `python demo.y` to test sensors.
 # Step 6: Set up logging via API
 
 Create a Google sheet. Copy the sheet name and id into the config.py file.
+Install google api python client `pip install --upgrade google-api-python-client oauth2client`
 Follow [google's instructions](https://gspread.readthedocs.io/en/latest/oauth2.html) to enable api access for logging. Currently they are:
- - Go to Google Developers Console and create a new project.
- - In the box labeled “Search for APIs and Services”, search for “Google Drive API” and enable it.
- - In the box labeled “Search for APIs and Services”, search for “Google Sheets API” and enable it.
- - Go to “APIs & Services > Credentials” and choose “Create credentials > Service account key”.
- - Fill out the form, click “Create key”, and select “JSON” and click “Create”.
+- Go to Google Developers Console and create a new project.
+- In the box labeled “Search for APIs and Services”, search for “Google Drive API” and enable it.
+- In the box labeled “Search for APIs and Services”, search for “Google Sheets API” and enable it.
+- Go to “APIs & Services > Credentials” and choose “Create credentials > Service account key”.
+- Fill out the form, click “Create key”, and select “JSON” and click “Create”.
 
 You will automatically download a JSON file with credentials. Copy to the pi zero WeatherLogger repo and name it sheets-api-credentials.json.
 Run `python read-sensors.py` to test logging.
