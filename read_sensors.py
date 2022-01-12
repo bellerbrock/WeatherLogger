@@ -38,10 +38,10 @@ def print_readings(readings):
     """print_readings method:
        prints readings to STDOUT
     """
-    print ("Temperature:", readings.tempF, "°F")
-    print ("Pressure:", readings.pressure, "mb")
-    print ("Humidity:", readings.pressure, "%%rH")
-    print ("Light Intensity:", readings.light, "lux")
+    print ("Temperature:", readings["tempF"], "°F")
+    print ("Pressure:", readings["pressure"], "mb")
+    print ("Humidity:", readings["humidity"], "%%rH")
+    print ("Light Intensity:", readings["light"], "lux")
 
 
 def display_readings(readings):
@@ -80,8 +80,8 @@ def display_readings(readings):
     IP = subprocess.check_output(cmd, shell = True ).strip().decode( "utf-8" )
 
     # Create two lines of sensor text.
-    line1 = str(readings.tempF) + " F" + "    " + str(readings.pressure) + " mb"
-    line2 = str(readings.pressure) + " %RH" + "  " + str(readings.light) + " LUX"
+    line1 = str(readings["tempF"]) + " F" + "    " + str(readings["pressure"]) + " mb"
+    line2 = str(readings["humidity"]) + " %RH" + "  " + str(readings["light"]) + " LUX"
 
     draw.text((x, top),       str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")), font=font, fill=255)
     draw.text((x, top+8),     line1,  font=font, fill=255)
@@ -108,10 +108,10 @@ def update_sheet(sheetname, readings):
     # values is the array of rows we are updating, its a single row
     values = [ [
         datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
-        readings.tempF,
-        readings.pressure,
-        readings.pressure,
-        readings.light
+        readings["tempF"],
+        readings["pressure"],
+        readings["humidity"],
+        readings["light"]
     ] ]
     body = { 'values': values }
     # call the append API to perform the operation
