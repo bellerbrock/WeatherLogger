@@ -76,7 +76,7 @@ cd Adafruit_Python_SSD1306
 sudo python setup.py install
 cd ~/WeatherLogger
 `
-- run `python demo.y` to test sensors.
+- run `python -c "from read_sensors import demo; demo()"` to test sensors.
 
 # Step 6: Set up logging via API
 
@@ -91,9 +91,9 @@ Follow [google's instructions](https://gspread.readthedocs.io/en/latest/oauth2.h
 You will automatically download a JSON file with credentials. Open the file, copy the value of 'client_email' in the file, then go to your google sheet and share it with the client email.
 
 Next copy the JSON credential file to the pi zero WeatherLogger repo and name it `sheets-api-credentials.json`.
-Run `python read-sensors.py` to test logging.
+Run `python read_sensors.py` to test logging.
 Once working run `crontab -e` and add a line like `
-*/5 * * * * cd /home/pi/project/WeatherLogger; python read-sensors.py` for automatic logging (in this case every 5 mins).
+*/5 * * * * cd /home/pi/project/WeatherLogger; python read_sensors.py` for automatic logging (in this case every 5 mins).
 
 # Step 7: Final assembly
 
