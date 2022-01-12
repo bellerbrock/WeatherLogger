@@ -1,83 +1,62 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-import bme280
-import bh1750
 import datetime
 import time
-import Adafruit_GPIO.SPI as SPI
-import Adafruit_SSD1306
-
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-
 import subprocess
+import board
+import bme280
+import bh1750
+import adafruit_ssd1306
+import digitalio
+from PIL import Image, ImageDraw, ImageFont
 
 def display_readings(temperature, pressure, humidity, light):
     """display_readings method:
-       diplays the latest sensor readings on the lcd display, along with timestamp and ip address  
+       diplays the latest sensor readings on the lcd display, along with timestamp and ip address
     """
-    
 
-    # Raspberry Pi pin configuration:
-    RST = None     # on the PiOLED this pin isnt used
-    # Note the following are only used with SPI:
-    DC = 23
-    SPI_PORT = 0
-    SPI_DEVICE = 0
+    # Define the Reset Pin
+    oled_reset = digitalio.DigitalInOut(board.D4)
 
-    # 128x32 display with hardware I2C:
-    disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
+    # Define dimensions
+    WIDTH = 128
+    HEIGHT = 32
+    top = -2
+    x = 0
 
-    # Initialize library.
-    disp.begin()
+    # Use for I2C.
+    i2c = board.I2C()
+    oled = adafruit_ssd1306.SSD1306_I2C(WIDTH, HEIGHT, i2c, addr=0x3C, reset=oled_reset)
 
     # Clear display.
-    disp.clear()
-    disp.display()
+    oled.fill(0)
+    oled.show()
 
     # Create blank image for drawing.
-    # Make sure to create image with mode '1' for 1-bit color.
-    width = disp.width
-    height = disp.height
-    image = Image.new('1', (width, height))
+    image = Image.new("1", (oled.width, oled.height))
 
     # Get drawing object to draw on image.
     draw = ImageDraw.Draw(image)
 
-    # Draw a black filled box to clear the image.
-    draw.rectangle((0,0,width,height), outline=0, fill=0)
-
-    # Draw some shapes.
-    # First define some constants to allow easy resizing of shapes.
-    padding = -2
-    top = padding
-    bottom = height-padding
-    # Move left to right keeping track of the current x position for drawing shapes.
-    x = 0
-
-
     # Load default font.
     font = ImageFont.load_default()
 
-    # Draw a black filled box to clear the image.
-    draw.rectangle((0,0,width,height), outline=0, fill=0)
-
     # Shell scripts for system monitoring from here : https://unix.stackexchange.com/questions/119126/command-to-display-memory-usage-disk-usage-and-cpu-load
     cmd = "hostname -I | cut -d\' \' -f1"
-    IP = subprocess.check_output(cmd, shell = True )
+    IP = subprocess.check_output(cmd, shell = True ).strip().decode( "utf-8" )
 
-    # Write two lines of text.
-    line1 = str(temperature) + " F" + "  " + str(pressure) + " mb"
-    line2 = str(humidity) + " %" + "  " + str(light) + " lux"
-    draw.text((x, top),       "IP: " + str(IP),  font=font, fill=255)
-    draw.text((x, top+8),     str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")), font=font, fill=255)
-    draw.text((x, top+16),    line1,  font=font, fill=255)
-    draw.text((x, top+25),    line2,  font=font, fill=255)
+    # Create two lines of sensor text.
+    line1 = str(temperature) + " F" + "    " + str(pressure) + " mb"
+    line2 = str(humidity) + " %RH" + "  " + str(light) + " LUX"
+
+    draw.text((x, top),       str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")), font=font, fill=255)
+    draw.text((x, top+8),     line1,  font=font, fill=255)
+    draw.text((x, top+16),    line2,  font=font, fill=255)
+    draw.text((x, top+25),    "IP: " + str(IP),  font=font, fill=255)
 
     # Display image.
-    disp.image(image)
-    disp.display()
+    oled.image(image)
+    oled.show()
 
 
 def main():
@@ -88,10 +67,10 @@ def main():
     tempF = round((tempC * 9/5) + 32)
     pressure = round(pressure/100)
     humidity = round(humidity)
-    print ("Temperature:", tempF, "°F")
+    print ("Temperature:", tempF, "F")
     print ("Pressure:", pressure, "mb")
-    print ("Humidity:", humidity, "%%rH")
-    print ("Light Intensity:", light, "lux")
+    print ("Humidity:", humidity, "%RH")
+    print ("Light Intensity:", light, "LUX")
     display_readings(tempF, pressure, humidity, light)
 
 if __name__ == '__main__':
