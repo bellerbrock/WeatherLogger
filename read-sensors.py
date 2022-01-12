@@ -4,21 +4,47 @@ import datetime
 import time
 import subprocess
 import board
+import config
 
 import bme280
 import bh1750
 import adafruit_ssd1306
 import digitalio
-from PIL import Image, ImageDraw, ImageFont
 
-import config
+from PIL import Image, ImageDraw, ImageFont
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-def display_readings(temperature, pressure, humidity, light):
+def retrieve_readings():
+    """retrieve_readings method:
+       retrieves sensor values for temperature, pressure, humidity, and light
+       returns values in dictionary format, rounded to nearest sig fig
+    """
+    bme = bme280.Bme280()
+    bme.set_mode(bme280.MODE_FORCED)
+    tempC, pressure, humidity = bme.get_data()
+    return {
+        'tempF': round((tempC * 9/5) + 32),
+        'pressure': round(pressure/100),
+        'humidity': round(humidity)
+        'light': round(bh1750.readLight())
+    }
+
+
+def print_readings():
+    """print_readings method:
+       prints readings to STDOUT
+    """
+    print ("Temperature:", readings.tempF, "°F")
+    print ("Pressure:", readings.pressure, "mb")
+    print ("Humidity:", readings.pressure, "%%rH")
+    print ("Light Intensity:", readings.light, "lux")
+
+
+def display_readings(readings):
     """display_readings method:
        diplays the latest sensor readings on the lcd display, along with timestamp and ip address
     """
@@ -54,8 +80,8 @@ def display_readings(temperature, pressure, humidity, light):
     IP = subprocess.check_output(cmd, shell = True ).strip().decode( "utf-8" )
 
     # Create two lines of sensor text.
-    line1 = str(temperature) + " F" + "    " + str(pressure) + " mb"
-    line2 = str(humidity) + " %RH" + "  " + str(light) + " LUX"
+    line1 = str(readings.tempF) + " F" + "    " + str(readings.pressure) + " mb"
+    line2 = str(readings.pressure) + " %RH" + "  " + str(readings.light) + " LUX"
 
     draw.text((x, top),       str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M")), font=font, fill=255)
     draw.text((x, top+8),     line1,  font=font, fill=255)
@@ -67,7 +93,7 @@ def display_readings(temperature, pressure, humidity, light):
     oled.show()
 
 
-def update_sheet(sheetname, temperature, pressure, humidity, light):
+def update_sheet(sheetname, readings):
     """update_sheet method:
        appends a row of a sheet in the spreadsheet with the
        the latest temperature, pressure, humidity, and light sensor data
@@ -82,10 +108,10 @@ def update_sheet(sheetname, temperature, pressure, humidity, light):
     # values is the array of rows we are updating, its a single row
     values = [ [
         datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
-        temperature,
-        pressure,
-        humidity,
-        light
+        readings.tempF,
+        readings.pressure,
+        readings.pressure,
+        readings.light
     ] ]
     body = { 'values': values }
     # call the append API to perform the operation
@@ -97,24 +123,23 @@ def update_sheet(sheetname, temperature, pressure, humidity, light):
                 body=body).execute()
 
 
+def demo():
+    """demo method:
+       retrieves readings, prints them to STDOUT, and displays them on the station's oled screen
+    """
+    readings = retrieve_readings()
+    print_readings(readings)
+    display_readings(readings)
+
+
 def main():
     """main method:
-       reads the BME280 and BH1750 chips then
-       calls update_sheet method to add their sensor data to the spreadsheet
+       retrieves readings, displays them on the station's oled screen and
+       logs them to the google spreadsheet
     """
-    bme = bme280.Bme280()
-    bme.set_mode(bme280.MODE_FORCED)
-    tempC, pressure, humidity = bme.get_data()
-    light = round(bh1750.readLight())
-    tempF = round((tempC * 9/5) + 32)
-    pressure = round(pressure/100)
-    humidity = round(humidity)
-    print ("Temperature:", tempF, "°F")
-    print ("Pressure:", pressure, "mb")
-    print ("Humidity:", humidity, "%RH")
-    print ("Light Intensity:", light, "LUX")
-    update_sheet(config.SHEET_NAME, tempF, pressure, humidity, light)
-    display_readings(tempF, pressure, humidity, light)
+    readings = retrieve_readings()
+    display_readings(readings)
+    update_sheet(config.SHEET_NAME, readings)
 
 if __name__ == '__main__':
     main()
