@@ -4,11 +4,13 @@ import datetime
 import time
 import subprocess
 import board
+
 import bme280
 import bh1750
 import adafruit_ssd1306
 import digitalio
 from PIL import Image, ImageDraw, ImageFont
+
 
 def display_readings(temperature, pressure, humidity, light):
     """display_readings method:

@@ -1,24 +1,22 @@
 # -*- coding: utf-8 -*-
-# import many libraries
 from __future__ import print_function
+import datetime
+import time
+import subprocess
+import board
+
+import bme280
+import bh1750
+import adafruit_ssd1306
+import digitalio
+from PIL import Image, ImageDraw, ImageFont
+
+import config
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 from oauth2client.service_account import ServiceAccountCredentials
-import bme280
-import bh1750
-import datetime
-import config
 
-import time
-import Adafruit_GPIO.SPI as SPI
-import Adafruit_SSD1306
-
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-
-import subprocess
 
 def display_readings(temperature, pressure, humidity, light):
     """display_readings method:
@@ -67,6 +65,7 @@ def display_readings(temperature, pressure, humidity, light):
     # Display image.
     oled.image(image)
     oled.show()
+
 
 def update_sheet(sheetname, temperature, pressure, humidity, light):
     """update_sheet method:
