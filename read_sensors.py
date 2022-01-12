@@ -29,12 +29,12 @@ def retrieve_readings():
     return {
         'tempF': round((tempC * 9/5) + 32),
         'pressure': round(pressure/100),
-        'humidity': round(humidity)
+        'humidity': round(humidity),
         'light': round(bh1750.readLight())
     }
 
 
-def print_readings():
+def print_readings(readings):
     """print_readings method:
        prints readings to STDOUT
     """
