@@ -138,6 +138,7 @@ cd into it with `cd WeatherLogger`
 # Set up remote logging
 
 Create a Google sheet. Copy the sheet name and id into the config.py file.
+
 Follow [google's instructions](https://gspread.readthedocs.io/en/latest/oauth2.html) to enable api access for logging. Currently they are:
 - Go to Google Developers Console and create a new project.
 - In the box labeled “Search for APIs and Services”, search for “Google Drive API” and enable it.
@@ -161,7 +162,8 @@ Run `python -c "from read_sensors import test_logging; test_logging()"` to test 
 
 
 Once logging is working run `crontab -e` and add the following line `*/15 * * * * cd /home/pi/WeatherLogger; python read_sensors.py`
-This will begin automatic logging of sensor data at regular intervals (in this case every 15 mins), and resume automatically after device restarts.
+
+This will begin automatic logging of sensor data at regular intervals (in this case every 15 mins), and will resume automatically whenever the pi restarts.
 
 # Final assembly
 
