@@ -4,6 +4,8 @@
 <img src="https://user-images.githubusercontent.com/11297346/149386111-5d8a14da-db21-44b3-976c-2ffa7c7eb3ba.jpg" width="100%" height="100%">
 </p>
 
+Instructions and python code for turning a raspberry pi plus sensors and display into a weather station that logs readings to a Google sheet.
+
 #### Table of Contents
 
 [Step 1: Tools and Materials](#tools-and-materials)<br>
@@ -14,9 +16,7 @@
 [Step 6: Set up remote logging](#set-up-remote-logging)<br>
 [Step 7: Final assembly](#final-assembly)<br>
 
-Instructions and python code for turning a raspberry pi plus sensors and display into a weather station that logs readings to a Google sheet.
-
-Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH1750 library](https://bitbucket.org/MattHawkinsUK/rpispy-misc/raw/master/python/bh1750.py). Credit to [Allan Schwartz's blog](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/) for the idea and the sheets api submission code.
+Links to the original [BME280](https://github.com/cmur2/python-bme280) and [BH1750](https://bitbucket.org/MattHawkinsUK/rpispy-misc/raw/master/python/bh1750.py) python libraries. Credit to [Allan Schwartz's blog](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/) for the idea and the sheets api submission code.
 
 # Tools and Materials
 
@@ -58,13 +58,29 @@ Materials:
 # Set up Pi
 
 Connect the SD card to a computer using the adapter, and flash it with latest raspberry pi OS using raspberry pi imager.
-The Lite version of the OS is sufficient. Once flashed but before ejecting navigate to the newly created `/boot` dir and run `touch ssh` to enable ssh. Also create a file called `wpa_supplicant.conf` in the `/boot` dir and add the following lines.
+
+The Lite version of the OS is sufficient. Once flashed but before ejecting navigate to the newly created `/boot` dir and run `touch ssh` to enable ssh.
+
+Also create a file called `wpa_supplicant.conf` in the `/boot` dir and add the following lines, editing to fit your wireless network's details
+
+```
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+        ssid="mySSID"
+        psk="myPassword"
+        key_mgmt=WPA-PSK
+}
+```
+
 This will connect your pi to wifi on booot, enabling headless wireless networking.
 More details [here](http://www.whatimade.today/when-the-pi-goes-stale-we-bake-another/#creatingthemicrosdcard).
 
 # Solder
 
-Solder the header pins that came with the sensors to the sensors. Solder five male header pins to the pi's pins 1,3,5,7, and 9.
+Solder the header pins that came with each sensor to the sensor itself. Solder five male header pins to the pi's pins 1,3,5,7, and 9.
 
 Create a dupont wire hub by breaking away 4 header pins and soldering them together. Repeat this 4 times for a total of 4 hubs.
 
@@ -98,22 +114,27 @@ Insert the SD card into the pi zero W's slot and connect the power cable.
 
 # Test sensors
 
-- Switch on the power to boot up the pi zero w. Use a smartphone + Network Scanner app (or a computer and the nmap utility) to find the pi's IP address.
+Switch on the power to boot up the pi zero w. Use a smartphone + Network Scanner app (or a computer and the nmap utility) to find the pi's IP address.
 
 Connect to it via SSH (`ssh pi@your.ip.add.ress`) and:
 - Change the pi's password to something other than the default (which is `raspberry`).
 - Use raspi-config to set language, timezone, and enable i2c.
-- run `sudo apt-get install -y python-smbus i2c-tools python-pip python-pil git` to install python-smbus, i2c-tools, pip, pil, and git if not already installed.
+- run `sudo apt-get install -y i2c-tools python3-smbus python-pip python-pil git` to install python-smbus, i2c-tools, pip, pil, and git if not already installed.
+- run `sudo pip3 install adafruit-circuitpython-ssd1306`
 - run `pip install --upgrade google-api-python-client oauth2client` to install google api python client
 - Reboot using `sudo reboot`, then connect again via ssh and run `i2cdetect -y 1` to verify the sensors and display are properly connected.
-- Clone to this repo to the pi home dir with git `git clone https://github.com/bellerbrock/WeatherLogger.git`, then install the OLED python library
-`cd Weatherlogger
-git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git
-cd Adafruit_Python_SSD1306
-sudo python setup.py install
-cd ~/WeatherLogger
-`
-- run `python -c "from read_sensors import demo; demo()"` to test sensors.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149408573-23d1baf8-233f-49a4-b2e5-668421d4dfea.png" width="50%" height="50%">
+</p>
+
+- Clone to this repo to the pi home dir with git `git clone https://github.com/bellerbrock/WeatherLogger.git`, then
+cd into it with `cd WeatherLogger`
+- run `python -c "from read_sensors import demo; demo()"` to test sensors. You should see output in your console, and matching readings on the OLED display
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149408608-c60309da-7e97-4b57-a475-3c9ee1938804.png" width="75%" height="75%">
+</p>
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149388305-bc6d7a20-55a8-4286-92a4-d740014d64bf.jpg" width="75%" height="75%">
