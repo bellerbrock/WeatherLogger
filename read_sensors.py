@@ -41,8 +41,8 @@ def print_readings(readings):
     print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
     print ("Temperature:", readings["tempF"], "°F")
     print ("Pressure:", readings["pressure"], "mb")
-    print ("Humidity:", readings["humidity"], "%%rH")
-    print ("Light Intensity:", readings["light"], "lux")
+    print ("Humidity:", readings["humidity"], "%%RH")
+    print ("Light Intensity:", readings["light"], "LUX")
 
 
 def display_readings(readings):
