@@ -38,6 +38,7 @@ def print_readings(readings):
     """print_readings method:
        prints readings to STDOUT
     """
+    print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
     print ("Temperature:", readings["tempF"], "°F")
     print ("Pressure:", readings["pressure"], "mb")
     print ("Humidity:", readings["humidity"], "%%rH")
