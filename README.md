@@ -153,11 +153,11 @@ Next copy the JSON credential file to the pi zero WeatherLogger repo and name it
 Run `python -c "from read_sensors import test_logging; test_logging()"` to test logging. Confirm that data matching the output in your console is being written to the google sheet.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149423090-0231a756-924d-4809-aaba-38ee42126808.png" width="75%" height="75%">
+<img src="https://user-images.githubusercontent.com/11297346/149424617-10f1e269-87c0-499c-bcf1-6d66f5c84fcd.png" width="75%" height="75%">
 </p>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149423113-37fa6a02-218d-4120-be3f-0fd15b630e08.png" width="75%" height="75%">
+<img src="https://user-images.githubusercontent.com/11297346/149424639-ab96d2af-8899-4dd8-afd0-b31aca9e342d.png" width="75%" height="75%">
 </p>
 
 
