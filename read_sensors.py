@@ -38,10 +38,10 @@ def print_readings(readings):
     """print_readings method:
        prints readings to STDOUT
     """
-    print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+    print ("At", datetime.datetime.now().strftime("%H:%M"), "on", datetime.datetime.now().strftime("%Y-%m-%d"), "sensors read:\n")
     print ("Temperature:", readings["tempF"], "°F")
     print ("Pressure:", readings["pressure"], "mb")
-    print ("Humidity:", readings["humidity"], "%%RH")
+    print ("Humidity:", readings["humidity"], "%RH")
     print ("Light Intensity:", readings["light"], "LUX")
 
 
@@ -124,13 +124,27 @@ def update_sheet(sheetname, readings):
                 body=body).execute()
 
 
-def demo():
-    """demo method:
+def test_sensors():
+    """test_sensors method:
        retrieves readings, prints them to STDOUT, and displays them on the station's oled screen
     """
     readings = retrieve_readings()
     print_readings(readings)
+    print ("\nWriting results to OLED display...")
     display_readings(readings)
+
+
+def test_logging():
+    """test_logging method:
+       retrieves readings, prints them to STDOUT, displays them on the station's oled screen and
+       logs them to the google spreadsheet
+    """
+    readings = retrieve_readings()
+    print_readings(readings)
+    print ("\nWriting results to OLED display...")
+    display_readings(readings)
+    print ("\nLogging results to", config.SHEET_NAME, "in google sheets")
+    update_sheet(config.SHEET_NAME, readings)
 
 
 def main():
@@ -141,6 +155,7 @@ def main():
     readings = retrieve_readings()
     display_readings(readings)
     update_sheet(config.SHEET_NAME, readings)
+
 
 if __name__ == '__main__':
     main()
