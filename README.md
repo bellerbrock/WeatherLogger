@@ -1,10 +1,7 @@
 # WeatherLogger
-Instructions and python code for turning a raspberry pi plus sensors and display into a weather station that logs readings to a Google sheet.
-
-Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH1750 library](https://bitbucket.org/MattHawkinsUK/rpispy-misc/raw/master/python/bh1750.py). Credit to [Allan Schwartz's blog](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/) for the idea and the sheets api submission code.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149386111-5d8a14da-db21-44b3-976c-2ffa7c7eb3ba.jpg" width="90%" height="100%">
+<img src="https://user-images.githubusercontent.com/11297346/149386111-5d8a14da-db21-44b3-976c-2ffa7c7eb3ba.jpg" width="100%" height="100%">
 </p>
 
 #### Table of Contents
@@ -16,6 +13,10 @@ Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH
 [Step 5: Test sensors](#test-sensors)<br>
 [Step 6: Set up remote logging](#set-up-remote-logging)<br>
 [Step 7: Final assembly](#final-assembly)<br>
+
+Instructions and python code for turning a raspberry pi plus sensors and display into a weather station that logs readings to a Google sheet.
+
+Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH1750 library](https://bitbucket.org/MattHawkinsUK/rpispy-misc/raw/master/python/bh1750.py). Credit to [Allan Schwartz's blog](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/) for the idea and the sheets api submission code.
 
 # Tools and Materials
 
