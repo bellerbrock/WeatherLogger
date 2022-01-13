@@ -41,7 +41,7 @@ Materials:
 - [BME280 sensor](https://amzn.to/2N6lDRt)
 - [BH1750 sensor](https://amzn.to/2Z0b6ds)
 - [I2C OLED display](https://amzn.to/2YUIVfM)
-- Female to Female Dupont Wire
+- 16 Female to Female jumper wires
 - Breakaway male header pins
 - White Electrical Tape and/or Duct Tape
 - Epoxy
@@ -79,7 +79,7 @@ More details [here](http://www.whatimade.today/when-the-pi-goes-stale-we-bake-an
 
 Solder the header pins that came with each sensor to the sensor itself. Solder five male header pins to the pi's pins 1,3,5,7, and 9.
 
-Create a dupont wire hub by breaking away 4 header pins and soldering them together. Repeat this 4 times for a total of 4 hubs.
+Create a jumper wire hub by breaking away 4 header pins and soldering them together. Repeat this 4 times for a total of 4 hubs.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149387200-6737ed30-141f-4c5a-978d-38e020136f2f.jpg" width="95%" height="100%">
@@ -121,7 +121,7 @@ Connect to it via SSH (`ssh pi@your.ip.add.ress`) and:
 <img src="https://user-images.githubusercontent.com/11297346/149408573-23d1baf8-233f-49a4-b2e5-668421d4dfea.png" width="50%" height="50%">
 </p>
 
-The default addresses are 0x76 for the BME280 sensor, 0x23 for the BH1750 sensor, and 0x3c for the I2C OLED display
+The default addresses are `0x76` for the BME280 sensor, `0x23` for the BH1750 sensor, and `0x3c` for the I2C OLED display.
 
 - Clone to this repo to the pi home dir with git `git clone https://github.com/bellerbrock/WeatherLogger.git`, then
 cd into it with `cd WeatherLogger`
@@ -160,29 +160,24 @@ Run `python -c "from read_sensors import test_logging; test_logging()"` to test 
 </p>
 
 
-Once working run `crontab -e` and add the following line `*/15 * * * * cd /home/pi/WeatherLogger; python read_sensors.py` for automatic logging (in this case every 15 mins).
+Once logging is working run `crontab -e` and add the following line `*/15 * * * * cd /home/pi/WeatherLogger; python read_sensors.py`
+This will begin automatic logging of sensor data at regular intervals (in this case every 15 mins), and resume automatically after device restarts.
 
 # Final assembly
 
-Shutdown the pi.
-
-Drill a hole in the center of the lid of your jar, large enough to fit the pi power cable.
-
-Drill three smaller holes evenly spaced around the edges of the lid, then use a utility knife to expand them into slots large enough to fit the wires for each sensor.
-
-Drill holes for airflow in the sides of the pvc cap, slanting them slightly upwards.
-
-Reassemble the components with the pi in the jar and the sensors on top of the lid. Seal the lid penetrations with white tape.
+- Shutdown the pi
+- Drill a hole in the center of the lid of your jar, large enough to fit the pi power cable.
+- Drill three smaller holes evenly spaced around the edges of the lid, then use a utility knife to expand them into slots large enough to fit the 4 jumper wires for each sensor.
+- Drill holes for airflow in the sides of the pvc cap, slanting them slightly upwards.
+- Reassemble the components with the pi in the jar and the sensors on top of the lid. Seal the lid penetrations with white tape.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149390928-c926defc-76d3-4f58-b90d-c0f235c458f9.jpg" width="75%" height="75%">
 </p>
 
-Use epoxy to fix the pvc cover on top of the BME280 sensor and the light bulb cover on top of the BH1750 sensor.
-
-Cut a matching slot in the bottom of the clear plastic OLED display case, then connect the display inside it's case and use epoxy to fix it to the lid.
-
-Protect the internal components from the heat of direct sunlight by wrapping foil around the jar and securing it with tape.
+- Use epoxy to fix the pvc cover on top of the BME280 sensor and the light bulb cover on top of the BH1750 sensor.
+- Cut a matching slot in the bottom of the clear plastic OLED display case, then connect the display inside it's case and use epoxy to fix it to the lid.
+- Protect the internal components from the heat of direct sunlight by wrapping foil around the jar and securing it with tape.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149391101-85ded00e-b406-4a4e-aa9f-e714f0b16a7a.jpg" width="75%" height="75%">
