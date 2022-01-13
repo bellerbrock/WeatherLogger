@@ -21,24 +21,21 @@ Links to the original [BME280](https://github.com/cmur2/python-bme280) and [BH17
 # Tools and Materials
 
 Tools:
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149386269-46a58690-5016-403c-8a2d-96cca660f7ca.jpg" width="75%" height="75%">
-</p>
-
 - Drill and Bits
 - Soldering Iron
 - Breadboard
 - Micro SD card adapter
 - Utility Knife
 
-
-Materials:
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149386269-46a58690-5016-403c-8a2d-96cca660f7ca.jpg" width="75%" height="75%">
+</p>
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149386383-61a19f27-b65f-4ea4-a8e2-4baedad0c66b.jpg" width="75%" height="75%">
 </p>
 
+Materials:
 - [Raspberry Pi Zero W plus power cable](https://amzn.to/36XpZBv)
 - [8GB or more Micro SD card](https://amzn.to/2YXBOTR)
 - [BME280 sensor](https://amzn.to/2N6lDRt)
@@ -155,8 +152,13 @@ Next copy the JSON credential file to the pi zero WeatherLogger repo and name it
 Run `python -c "from read_sensors import test_logging; test_logging()"` to test logging. Confirm that data matching the output in your console is being written to the google sheet.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149420671-5386a325-821e-45aa-b5a3-39afea001735.jpg" width="75%" height="75%">
+<img src="https://user-images.githubusercontent.com/11297346/149423090-0231a756-924d-4809-aaba-38ee42126808.png" width="75%" height="75%">
 </p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149423113-37fa6a02-218d-4120-be3f-0fd15b630e08.png" width="75%" height="75%">
+</p>
+
 
 Once working run `crontab -e` and add the following line `*/15 * * * * cd /home/pi/WeatherLogger; python read_sensors.py` for automatic logging (in this case every 15 mins).
 
