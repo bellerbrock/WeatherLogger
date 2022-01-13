@@ -12,17 +12,24 @@ Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH
 # Tools and Materials
 
 Tools:
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149386269-46a58690-5016-403c-8a2d-96cca660f7ca.jpg" width="50%" height="50%">
+</p>
+
 - Drill and Bits
 - Soldering Iron
 - Breadboard
 - Micro SD card adapter
 - Utility Knife
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149386269-46a58690-5016-403c-8a2d-96cca660f7ca.jpg" width="50%" height="50%">
-</p>
 
 Materials:
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149386383-61a19f27-b65f-4ea4-a8e2-4baedad0c66b.jpg" width="75%" height="75%">
+</p>
+
 - [Raspberry Pi Zero W plus power cable](https://amzn.to/36XpZBv)
 - [8GB or more Micro SD card](https://amzn.to/2YXBOTR)
 - [BME280 sensor](https://amzn.to/2N6lDRt)
@@ -38,9 +45,6 @@ Materials:
 - A plastic jar with a white lid
 - Aluminium Foil
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149386383-61a19f27-b65f-4ea4-a8e2-4baedad0c66b.jpg" width="50%" height="50%">
-</p>
 
 # Step 1: Set up Pi Zero W SD card
 
@@ -52,9 +56,14 @@ More details [here](http://www.whatimade.today/when-the-pi-goes-stale-we-bake-an
 # Step 2: Solder
 
 Solder the header pins that came with the sensors to the sensors. Solder five male header pins to the pi's pins 1,3,5,7, and 9.
-And create a dupont wire hub by breaking away 4 header pins and soldering them together. Repeat this 4 times for a total of 4 hubs.
 
-# Step 4: Connect for testing
+Create a dupont wire hub by breaking away 4 header pins and soldering them together. Repeat this 4 times for a total of 4 hubs.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149387200-6737ed30-141f-4c5a-978d-38e020136f2f.jpg" width="90%" height="100%">
+</p>
+
+# Step 4: Connect all the components
 
 Wire pi to sensors via:
 - Wire color 1 from pi pin 1 and sensors/display VIN to hub 1
@@ -62,10 +71,21 @@ Wire pi to sensors via:
 - Wire color 3 from pi pin 5 and sensors/display SCL to hub 3
 - Wire color 4 from pi pin 9 and sensors/display GND to hub 4
 
-Insulate the exposed solder on each hub with electrical tape.
-Also join/wrap each set of female connecters with electrical tape.
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149387703-ea0963c3-0525-4e53-a66a-8a0b589f707b.jpg" width="50%" height="50%">
+</p>
+
+Insulate the exposed solder on each hub with electrical tape. Also join/wrap each set of female connecters with electrical tape.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149387797-4d537ce2-a283-4088-8c89-ca3109b827df.jpg" width="50%" height="50%">
+</p>
 
 Insert the SD card into the pi zero W's slot and connect the power cable.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149388226-6f56da81-35a4-41de-83fa-22739fc7146f.jpg" width="75%" height="75%">
+</p>
 
 # Step 5: Test
 
@@ -85,6 +105,10 @@ sudo python setup.py install
 cd ~/WeatherLogger
 `
 - run `python -c "from read_sensors import demo; demo()"` to test sensors.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149388305-bc6d7a20-55a8-4286-92a4-d740014d64bf.jpg" width="75%" height="75%">
+</p>
 
 # Step 6: Set up logging via API
 
@@ -106,7 +130,30 @@ Once working run `crontab -e` and add a line like `
 # Step 7: Final assembly
 
 Shutdown the pi.
-Drill a hole in the bottom of your jar for the pi power cable and the center of the top for the sensor wires.
-Drill a couple extra holes in the top to run twine thorugh for hanging.
-Reassemble the pi in the jar and the sensors on top of the lid. If deployed outside or in direct sunlight add protection. For example aluminum foil around the jar to protect the pi, a semi-transparent dome for the BH1750 sensor, a cover with air circulation for the BME280.
-Restart the pi and watch the data roll in.
+Drill a hole in the center of the lid of your jar, large enough to fit the pi power cable.
+Drill three smaller holes evenly spaced around the edges of the lid, then use a utility knife to expand them into slots large enough to fit the dupont wire hubs for the sensors.
+Drill holes for airflow in the sides of the pvc cap, slanting them slightly upwards.
+Reassemble the components with the pi in the jar and the sensors on top of the lid. Seal the lid penetrations with white tape.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149390928-c926defc-76d3-4f58-b90d-c0f235c458f9.jpg" width="75%" height="75%">
+</p>
+
+Use Epoxy to fix the pvc cover on top of the BME280 sensor and the light bulb cover on top of the BH1750 sensor.
+Cut a matching slot in the bottom of the clear plastic OLED display case, then connect the display inside it's case and use epoxy to fix it to the lid
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149391056-656f22bb-08f0-416a-b3ae-888a1295d1c8.jpg" width="75%" height="75%">
+</p>
+
+Protect the internal components from overheating/ direct sunlight. Wrap aluminum foil around the jar and secure it with tape.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149391101-85ded00e-b406-4a4e-aa9f-e714f0b16a7a.jpg" width="75%" height="75%">
+</p>
+
+Finally, hang the pi in it's final location. Connect it to power, restart it, and watch the data roll in!
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149391148-2e0176b4-8300-4c59-9ab5-4550246de369.jpg" width="75%" height="75%">
+</p>
