@@ -1,10 +1,10 @@
 # WeatherLogger
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149386111-5d8a14da-db21-44b3-976c-2ffa7c7eb3ba.jpg" width="100%" height="100%">
-</p>
-
 Instructions and python code for turning a raspberry pi plus sensors and display into a weather station that logs readings to a Google sheet.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149386111-5d8a14da-db21-44b3-976c-2ffa7c7eb3ba.jpg" width="95%" height="100%">
+</p>
 
 #### Table of Contents
 
@@ -23,7 +23,7 @@ Links to the original [BME280](https://github.com/cmur2/python-bme280) and [BH17
 Tools:
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149386269-46a58690-5016-403c-8a2d-96cca660f7ca.jpg" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/11297346/149386269-46a58690-5016-403c-8a2d-96cca660f7ca.jpg" width="75%" height="75%">
 </p>
 
 - Drill and Bits
@@ -85,7 +85,7 @@ Solder the header pins that came with each sensor to the sensor itself. Solder f
 Create a dupont wire hub by breaking away 4 header pins and soldering them together. Repeat this 4 times for a total of 4 hubs.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149387200-6737ed30-141f-4c5a-978d-38e020136f2f.jpg" width="90%" height="100%">
+<img src="https://user-images.githubusercontent.com/11297346/149387200-6737ed30-141f-4c5a-978d-38e020136f2f.jpg" width="95%" height="100%">
 </p>
 
 # Connect sensors
@@ -96,14 +96,10 @@ Wire pi to sensors via:
 - Wire color 3 from pi pin 5 and sensors/display SCL to hub 3
 - Wire color 4 from pi pin 9 and sensors/display GND to hub 4
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149387703-ea0963c3-0525-4e53-a66a-8a0b589f707b.jpg" width="50%" height="50%">
-</p>
-
 Insulate the exposed solder on each hub with electrical tape. Also join/wrap each set of female connecters with electrical tape.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149387797-4d537ce2-a283-4088-8c89-ca3109b827df.jpg" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/11297346/149410787-50979876-2249-4833-83ec-dbbf836f209d.jpg" width="95%" height="100%">
 </p>
 
 Insert the SD card into the pi zero W's slot and connect the power cable.
@@ -125,15 +121,15 @@ Connect to it via SSH (`ssh pi@your.ip.add.ress`) and:
 - Reboot using `sudo reboot`, then connect again via ssh and run `i2cdetect -y 1` to verify the sensors and display are properly connected.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149408573-23d1baf8-233f-49a4-b2e5-668421d4dfea.png" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/11297346/149408573-23d1baf8-233f-49a4-b2e5-668421d4dfea.png" width="75%" height="75%">
 </p>
 
 - Clone to this repo to the pi home dir with git `git clone https://github.com/bellerbrock/WeatherLogger.git`, then
 cd into it with `cd WeatherLogger`
-- run `python -c "from read_sensors import demo; demo()"` to test sensors. You should see output in your console, and matching readings on the OLED display
+- run `python -c "from read_sensors import test_sensors; test_sensors()"` to test sensors. You should see output in your console, and matching readings on the OLED display
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149408608-c60309da-7e97-4b57-a475-3c9ee1938804.png" width="75%" height="75%">
+<img src="https://user-images.githubusercontent.com/11297346/149420452-e40fe4a0-3a93-47c5-af1f-b8717064e691.png" width="75%" height="75%">
 </p>
 
 <p align="center">
@@ -153,25 +149,36 @@ Follow [google's instructions](https://gspread.readthedocs.io/en/latest/oauth2.h
 You will automatically download a JSON file with credentials. Open the file, copy the value of 'client_email' in the file, then go to your google sheet and share it with the client email.
 
 Next copy the JSON credential file to the pi zero WeatherLogger repo and name it `sheets-api-credentials.json`.
-Run `python read_sensors.py` to test logging.
-Once working run `crontab -e` and add a line like `
-*/5 * * * * cd /home/pi/project/WeatherLogger; python read_sensors.py` for automatic logging (in this case every 5 mins).
+
+Run `python -c "from read_sensors import test_logging; test_logging()"` to test logging. Confirm that data matching the output in your console is being written to the google sheet.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149420671-5386a325-821e-45aa-b5a3-39afea001735.jpg" width="75%" height="75%">
+</p>
+
+Once working run `crontab -e` and add the following line `*/15 * * * * cd /home/pi/WeatherLogger; python read_sensors.py` for automatic logging (in this case every 15 mins).
 
 # Final assembly
 
 Shutdown the pi.
+
 Drill a hole in the center of the lid of your jar, large enough to fit the pi power cable.
-Drill three smaller holes evenly spaced around the edges of the lid, then use a utility knife to expand them into slots large enough to fit the dupont wire hubs for the sensors.
+
+Drill three smaller holes evenly spaced around the edges of the lid, then use a utility knife to expand them into slots large enough to fit the wires for each sensor.
+
 Drill holes for airflow in the sides of the pvc cap, slanting them slightly upwards.
+
 Reassemble the components with the pi in the jar and the sensors on top of the lid. Seal the lid penetrations with white tape.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149390928-c926defc-76d3-4f58-b90d-c0f235c458f9.jpg" width="75%" height="75%">
 </p>
 
-Use Epoxy to fix the pvc cover on top of the BME280 sensor and the light bulb cover on top of the BH1750 sensor.
-Cut a matching slot in the bottom of the clear plastic OLED display case, then connect the display inside it's case and use epoxy to fix it to the lid
-Protect the internal components from overheating/ direct sunlight. Wrap aluminum foil around the jar and secure it with tape.
+Use epoxy to fix the pvc cover on top of the BME280 sensor and the light bulb cover on top of the BH1750 sensor.
+
+Cut a matching slot in the bottom of the clear plastic OLED display case, then connect the display inside it's case and use epoxy to fix it to the lid.
+
+Protect the internal components from the heat of direct sunlight by wrapping foil around the jar and securing it with tape.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149391101-85ded00e-b406-4a4e-aa9f-e714f0b16a7a.jpg" width="75%" height="75%">
