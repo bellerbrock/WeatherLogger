@@ -121,15 +121,17 @@ Connect to it via SSH (`ssh pi@your.ip.add.ress`) and:
 - Reboot using `sudo reboot`, then connect again via ssh and run `i2cdetect -y 1` to verify the sensors and display are properly connected.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149408573-23d1baf8-233f-49a4-b2e5-668421d4dfea.png" width="75%" height="75%">
+<img src="https://user-images.githubusercontent.com/11297346/149408573-23d1baf8-233f-49a4-b2e5-668421d4dfea.png" width="50%" height="50%">
 </p>
+
+The default addresses are 0x76 for the BME280 sensor, 0x23 for the BH1750 sensor, and 0x3c for the I2C OLED display
 
 - Clone to this repo to the pi home dir with git `git clone https://github.com/bellerbrock/WeatherLogger.git`, then
 cd into it with `cd WeatherLogger`
 - run `python -c "from read_sensors import test_sensors; test_sensors()"` to test sensors. You should see output in your console, and matching readings on the OLED display
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149420452-e40fe4a0-3a93-47c5-af1f-b8717064e691.png" width="75%" height="75%">
+<img src="https://user-images.githubusercontent.com/11297346/149422758-463262b9-0a44-4eea-8886-ce5361efb010.png" width="75%" height="75%">
 </p>
 
 <p align="center">
