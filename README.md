@@ -5,7 +5,7 @@ Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH
 
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/104062389-64b7ac80-51c8-11eb-8a8c-115772191d34.png" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/11297346/149386111-5d8a14da-db21-44b3-976c-2ffa7c7eb3ba.jpg" width="90%" height="100%">
 </p>
 
 
@@ -17,6 +17,10 @@ Tools:
 - Breadboard
 - Micro SD card adapter
 - Utility Knife
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149386269-46a58690-5016-403c-8a2d-96cca660f7ca.jpg" width="50%" height="50%">
+</p>
 
 Materials:
 - [Raspberry Pi Zero W plus power cable](https://amzn.to/36XpZBv)
@@ -33,6 +37,10 @@ Materials:
 - Electronics Solder
 - A plastic jar with a white lid
 - Aluminium Foil
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/11297346/149386383-61a19f27-b65f-4ea4-a8e2-4baedad0c66b.jpg" width="50%" height="50%">
+</p>
 
 # Step 1: Set up Pi Zero W SD card
 
