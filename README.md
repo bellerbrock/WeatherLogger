@@ -3,11 +3,19 @@ Instructions and python code for turning a raspberry pi plus sensors and display
 
 Original [BME280 python library](https://github.com/cmur2/python-bme280) and [BH1750 library](https://bitbucket.org/MattHawkinsUK/rpispy-misc/raw/master/python/bh1750.py). Credit to [Allan Schwartz's blog](http://www.whatimade.today/log-sensor-data-straight-to-google-sheets-from-a-raspberry-pi-zero-all-the-python-code/) for the idea and the sheets api submission code.
 
-
 <p align="center">
 <img src="https://user-images.githubusercontent.com/11297346/149386111-5d8a14da-db21-44b3-976c-2ffa7c7eb3ba.jpg" width="90%" height="100%">
 </p>
 
+#### Table of Contents
+
+[Step 1: Tools and Materials](#tools-and-materials)<br>
+[Step 2: Set up Pi](#set-up-pi)<br>
+[Step 3: Solder](#solder)<br>
+[Step 4: Connect sensors](#connect-sensors)<br>
+[Step 5: Test sensors](#test-sensors)<br>
+[Step 6: Set up remote logging](#set-up-remote-logging)<br>
+[Step 7: Final assembly](#final-assembly)<br>
 
 # Tools and Materials
 
@@ -46,14 +54,14 @@ Materials:
 - Aluminium Foil
 
 
-# Step 1: Set up Pi Zero W SD card
+# Set up Pi
 
 Connect the SD card to a computer using the adapter, and flash it with latest raspberry pi OS using raspberry pi imager.
 The Lite version of the OS is sufficient. Once flashed but before ejecting navigate to the newly created `/boot` dir and run `touch ssh` to enable ssh. Also create a file called `wpa_supplicant.conf` in the `/boot` dir and add the following lines.
 This will connect your pi to wifi on booot, enabling headless wireless networking.
 More details [here](http://www.whatimade.today/when-the-pi-goes-stale-we-bake-another/#creatingthemicrosdcard).
 
-# Step 2: Solder
+# Solder
 
 Solder the header pins that came with the sensors to the sensors. Solder five male header pins to the pi's pins 1,3,5,7, and 9.
 
@@ -63,7 +71,7 @@ Create a dupont wire hub by breaking away 4 header pins and soldering them toget
 <img src="https://user-images.githubusercontent.com/11297346/149387200-6737ed30-141f-4c5a-978d-38e020136f2f.jpg" width="90%" height="100%">
 </p>
 
-# Step 4: Connect all the components
+# Connect sensors
 
 Wire pi to sensors via:
 - Wire color 1 from pi pin 1 and sensors/display VIN to hub 1
@@ -87,7 +95,7 @@ Insert the SD card into the pi zero W's slot and connect the power cable.
 <img src="https://user-images.githubusercontent.com/11297346/149388226-6f56da81-35a4-41de-83fa-22739fc7146f.jpg" width="75%" height="75%">
 </p>
 
-# Step 5: Test
+# Test sensors
 
 - Switch on the power to boot up the pi zero w. Use a smartphone + Network Scanner app (or a computer and the nmap utility) to find the pi's IP address.
 
@@ -110,7 +118,7 @@ cd ~/WeatherLogger
 <img src="https://user-images.githubusercontent.com/11297346/149388305-bc6d7a20-55a8-4286-92a4-d740014d64bf.jpg" width="75%" height="75%">
 </p>
 
-# Step 6: Set up logging via API
+# Set up remote logging
 
 Create a Google sheet. Copy the sheet name and id into the config.py file.
 Follow [google's instructions](https://gspread.readthedocs.io/en/latest/oauth2.html) to enable api access for logging. Currently they are:
@@ -127,7 +135,7 @@ Run `python read_sensors.py` to test logging.
 Once working run `crontab -e` and add a line like `
 */5 * * * * cd /home/pi/project/WeatherLogger; python read_sensors.py` for automatic logging (in this case every 5 mins).
 
-# Step 7: Final assembly
+# Final assembly
 
 Shutdown the pi.
 Drill a hole in the center of the lid of your jar, large enough to fit the pi power cable.
@@ -141,11 +149,6 @@ Reassemble the components with the pi in the jar and the sensors on top of the l
 
 Use Epoxy to fix the pvc cover on top of the BME280 sensor and the light bulb cover on top of the BH1750 sensor.
 Cut a matching slot in the bottom of the clear plastic OLED display case, then connect the display inside it's case and use epoxy to fix it to the lid
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11297346/149391056-656f22bb-08f0-416a-b3ae-888a1295d1c8.jpg" width="75%" height="75%">
-</p>
-
 Protect the internal components from overheating/ direct sunlight. Wrap aluminum foil around the jar and secure it with tape.
 
 <p align="center">
